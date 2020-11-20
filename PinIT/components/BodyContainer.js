@@ -48,7 +48,7 @@ export default function BodyContainer() {
                 renderItem={({item}) => (
                     <Image style={styles.item} source={{uri: item.src}} />
                 )}
-                numColumns={3}>
+                numColumns={2}>
             </FlatList>
         </ScrollView>
     </View>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-      width: 130,
-      height: 130,
+      width: 240,
+      height: 240,
   }
 });
