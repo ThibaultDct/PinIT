@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
 import Home from '../screens/home';
-import Profile from '../screens/home';
+import Profile from '../screens/profile';
 import Connexion from '../screens/connexion';
 import CreateAccount from "../screens/createAccount";
 
@@ -16,7 +16,7 @@ const screens = {
     Accueil: {
         screen: Home
     },
-    Profil: {
+    Profile: {
         screen: Profile
     },
 }

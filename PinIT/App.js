@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, Component } from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from "expo";
 import { StyleSheet, Text, View } from 'react-native';

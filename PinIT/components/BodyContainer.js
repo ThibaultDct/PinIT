@@ -51,7 +51,7 @@ export default function BodyContainer() {
                 renderItem={({item}) => (
                     <Image style={styles.item} source={{uri: item.src}} />
                 )}
-                numColumns={3}>
+                numColumns={2}>
             </FlatList>
         </ScrollView>
         <Spacer backgroundColor={'transparent'}  >
