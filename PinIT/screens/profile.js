@@ -2,6 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import Navbar from '../components/Navbar';
 import {AppLoading} from "expo";
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 export default function Profile() {
     const [isLoading, setLoading] = useState(true);
@@ -26,11 +31,15 @@ export default function Profile() {
                         <View style={styles.container}>
                             <View style={styles.imageContainer}>
                                 <Image
-                                    style={{width: 300, height: 300}}
+                                    style={{
+                                        width: responsiveWidth(20),
+                                        height: responsiveHeight(10)
+                                    }}
                                     source={{uri: data[0].img}}
                                 />
                             </View>
                             <View style={styles.globalInfosContainer}>
+                                <Text style={styles.pseudoText}>@{ data[0].pseudo }</Text>
                                 <Text style={styles.nameText}>{ data[0].firstname } { data[0].lastname }</Text>
                                 <Text style={styles.nameText}>{ data[0].age } ans</Text>
                                 <Text>{ data[0].bio }</Text>
@@ -68,12 +77,18 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     nameText: {
-        fontSize: 60,
+        fontSize: responsiveFontSize(2),
+        fontWeight: 'bold'
     },
     imageContainer: {
         flex: 1
     },
     globalInfosContainer: {
         flex: 2
+    },
+    pseudoText: {
+        fontSize: responsiveFontSize(2),
+        fontWeight: 'bold',
+        color: '#048BB7'
     }
 });
