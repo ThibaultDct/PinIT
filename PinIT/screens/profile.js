@@ -42,8 +42,11 @@ export default function Profile() {
                                 <Text style={styles.pseudoText}>@{ data[0].pseudo }</Text>
                                 <Text style={styles.nameText}>{ data[0].firstname } { data[0].lastname }</Text>
                                 <Text style={styles.nameText}>{ data[0].age } ans</Text>
-                                <Text>{ data[0].bio }</Text>
+                                <Text>{ data[0].country }</Text>
                             </View>
+                        </View>
+                        <View style={styles.bioContainer}>
+                            <Text>{ data[0].bio }</Text>
                         </View>
                     </View>
                 </View>
@@ -90,5 +93,11 @@ const styles = StyleSheet.create({
         fontSize: responsiveFontSize(2),
         fontWeight: 'bold',
         color: '#048BB7'
-    }
+    },
+    bioContainer: {
+        backgroundColor: '#9CC2CF',
+        borderRadius: 10,
+        marginTop: 20,
+        padding: 20,
+    },
 });

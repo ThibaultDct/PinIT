@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 # age validator function
 def validate_age(value):
@@ -17,6 +18,8 @@ class Profile(models.Model):
     country = models.CharField(max_length = 255, default = '')
     email = models.EmailField(max_length = 255, default = '')
     bio = models.CharField(max_length = 512, default = '')
+    created_at = models.DateTimeField(auto_now_add = True)
+    profile = models.ForeignKey(User, related_name = 'profile', on_delete = models.CASCADE, null = True)
 
     def __str__(self):
         return "%s %s (@%s)" % (self.lastname, self.firstname, self.pseudo)
