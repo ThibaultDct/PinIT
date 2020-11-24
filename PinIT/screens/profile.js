@@ -33,7 +33,7 @@ export default function Profile() {
                                 <Image
                                     style={{
                                         width: responsiveWidth(20),
-                                        height: responsiveHeight(10)
+                                        height: responsiveHeight(20),
                                     }}
                                     source={{uri: data[0].img}}
                                 />
