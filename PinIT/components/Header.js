@@ -5,7 +5,7 @@ import {Image, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-nat
 export default function Header({ nav }) {
 
     const pressHandler = () => {
-        nav.navigate('Profile');
+        nav.navigate('Profile', {navigation: nav});
     }
 
     return (
