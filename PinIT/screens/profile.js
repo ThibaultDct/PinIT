@@ -1,29 +1,44 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import Navbar from '../components/Navbar';
-import {AppLoading} from "expo";
-import {
-    responsiveHeight,
-    responsiveWidth,
-    responsiveFontSize
-} from "react-native-responsive-dimensions";
+import { AppLoading } from "expo";
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
+import { store } from "../App";
+import { SET_USER } from "../store/actions";
+import { userState } from "../store/state";
+import { TouchableOpacity } from "react-native-web";
+import { logout } from "../api_calls/auth";
 
-export default function Profile() {
+export default function Profile({ navigation }) {
     const [isLoading, setLoading] = useState(true);
+    const [isError, setError] = useState(false);
     const [data, setData] = useState([]);
+    const user = store.getState().user;
+    const token = store.getState().token;
 
     const pressHandler = () => {
         data.forEach(element => console.log(element))
     }
-    async function _loadData() {
-        await fetch('http://172.16.18.4:12053/api/profiles/?pseudo=ThibaultDct')
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => console.error(error))
-            .finally(() => setLoading(false));
+
+    const disconnect = () => {
+        logout()
+            .then(navigation.navigate('Connexion'));
     }
 
-    if (isLoading === false) {
+    async function _loadData() {
+        let url = 'http://172.16.18.4:12053/api/profiles/?pseudo=' + user;
+        await fetch(url, {
+            method: 'GET',
+            headers: {"Authorization": "Token " + token}})
+            .then((response) => response.json())
+            .then((json) => setData(json))
+            .catch((error) => {
+                console.log(error);
+                setError(true);
+            });
+    }
+
+    if (isLoading === false && isError === false) {
         return (
             <>
                 <View style={styles.profileContainer}>
@@ -39,14 +54,26 @@ export default function Profile() {
                                 />
                             </View>
                             <View style={styles.globalInfosContainer}>
-                                <Text style={styles.pseudoText}>@{ data[0].pseudo }</Text>
-                                <Text style={styles.nameText}>{ data[0].firstname } { data[0].lastname }</Text>
-                                <Text style={styles.nameText}>{ data[0].age } ans</Text>
-                                <Text>{ data[0].country }</Text>
+                                <Text style={styles.pseudoText}>@{data[0].pseudo}</Text>
+                                <Text style={styles.nameText}>{data[0].firstname} {data[0].lastname}</Text>
+                                <Text style={styles.nameText}>{data[0].age} ans</Text>
+                                <Text>{data[0].country}</Text>
+                            </View>
+                            <View style={styles.profileOptions}>
+                                <TouchableOpacity onPress={disconnect}>
+                                    <Image
+                                        style={{
+                                            width: responsiveWidth(2),
+                                            height: responsiveHeight(3),
+                                            title: 'Déconnexion',
+                                        }}
+                                        source={require('../img/logout.png')}
+                                    />
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.bioContainer}>
-                            <Text>{ data[0].bio }</Text>
+                            <Text>{data[0].bio}</Text>
                         </View>
                     </View>
                 </View>
@@ -78,6 +105,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 20,
         padding: 20,
+    },
+    profileOptions: {
+        flex: 1,
     },
     nameText: {
         fontSize: responsiveFontSize(2),
