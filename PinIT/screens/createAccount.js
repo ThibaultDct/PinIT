@@ -1,12 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, ImageBackground} from 'react-native';
+import {StyleSheet, View, ImageBackground, SafeAreaView, ScrollView} from 'react-native';
 import CreateAccountInput from '../components/CreateAccountInput';
 
 export default function CreateAccount({navigation}) {
 
     return (
         <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
-            <CreateAccountInput nav={navigation}/>
+            <SafeAreaView>
+                <ScrollView>
+                    <CreateAccountInput nav={navigation}/>
+                </ScrollView>
+            </SafeAreaView>
         </ImageBackground>
     );
 
