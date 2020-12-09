@@ -71,19 +71,19 @@ const styles = StyleSheet.create({
         height: responsiveHeight(2),
         backgroundColor: '#fff',
         padding: 5,
-        marginBottom : 5,
+        //marginBottom : 5,
         borderRadius: 10,
         borderColor: '#048BB7',
-        borderWidth: '1px'
+        borderWidth: 1
     },
     userInputLocked:{
         height: responsiveHeight(2),
         backgroundColor: '#D9D9D9',
         padding: 5,
-        marginBottom : 5,
+        //marginBottom : 5,
         borderRadius: 10,
         borderColor: '#048BB7',
-        borderWidth: '1px'
+        borderWidth: 1
     },
     userInputTitle:{
         backgroundColor: "#fff",
