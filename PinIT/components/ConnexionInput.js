@@ -4,8 +4,7 @@ import { useState } from 'react';
 import {StyleSheet, Text, View, TextInput, Button,} from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { store } from "../App";
-import { SET_USER } from "../store/actions";
-import { login } from "../api_calls/auth";
+import { login } from "../api_calls/AuthAPI";
 
 
 export default function ConnexionInput({ nav }) {
@@ -20,7 +19,7 @@ export default function ConnexionInput({ nav }) {
         login(username.text, password.text)
             .catch(err => console.log(err))
             .then(() => {
-                if (store.getState().user && store.getState().user !== '') {
+                if (store.getState().userReducer.user && store.getState().userReducer.user !== '') {
                     nav.navigate('Accueil');
                 } else {
                     setError(true);

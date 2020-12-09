@@ -4,17 +4,16 @@ import Navbar from '../components/Navbar';
 import { AppLoading } from "expo";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
 import { store } from "../App";
-import { SET_USER } from "../store/actions";
-import { userState } from "../store/state";
+import { SET_PROFILE, SET_USER } from "../store/actions";
 import { TouchableOpacity } from "react-native-web";
-import { logout } from "../api_calls/auth";
+import { logout } from "../api_calls/AuthAPI";
 
 export default function Profile({ navigation }) {
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [data, setData] = useState([]);
-    const user = store.getState().user;
-    const token = store.getState().token;
+    const user = store.getState().userReducer.user;
+    const token = store.getState().userReducer.token;
 
     const pressHandler = () => {
         data.forEach(element => console.log(element))
@@ -25,8 +24,12 @@ export default function Profile({ navigation }) {
             .then(navigation.navigate('Connexion'));
     }
 
+    const editProfile = () => {
+        navigation.navigate('EditProfile', {nav: navigation})
+    }
+
     async function _loadData() {
-        let url = 'http://172.16.18.4:12053/api/profiles/?pseudo=' + user;
+        let url = 'http://51.15.230.77:12053/api/profiles/?pseudo=' + user;
         await fetch(url, {
             method: 'GET',
             headers: {"Authorization": "Token " + token}})
@@ -38,7 +41,22 @@ export default function Profile({ navigation }) {
             });
     }
 
+    function updateProfileState() {
+        store.dispatch({type: SET_PROFILE, payload: {
+                pseudo: data[0].pseudo,
+                lastname: data[0].lastname,
+                firstname: data[0].firstname,
+                image: data[0].img,
+                age: data[0].age,
+                country: data[0].country,
+                bio: data[0].bio
+            }})
+        console.log(store.getState())
+    }
+
     if (isLoading === false && isError === false) {
+        updateProfileState()
+        let profileData = store.getState().userProfileReducer
         return (
             <>
                 <View style={styles.profileContainer}>
@@ -50,14 +68,14 @@ export default function Profile({ navigation }) {
                                         width: responsiveWidth(20),
                                         height: responsiveHeight(20),
                                     }}
-                                    source={{uri: data[0].img}}
+                                    source={{uri: profileData.image}}
                                 />
                             </View>
                             <View style={styles.globalInfosContainer}>
-                                <Text style={styles.pseudoText}>@{data[0].pseudo}</Text>
-                                <Text style={styles.nameText}>{data[0].firstname} {data[0].lastname}</Text>
-                                <Text style={styles.nameText}>{data[0].age} ans</Text>
-                                <Text>{data[0].country}</Text>
+                                <Text style={styles.pseudoText}>@{profileData.pseudo}</Text>
+                                <Text style={styles.nameText}>{profileData.firstname} {profileData.lastname}</Text>
+                                <Text style={styles.nameText}>{profileData.age} ans</Text>
+                                <Text>{profileData.country}</Text>
                             </View>
                             <View style={styles.profileOptions}>
                                 <TouchableOpacity onPress={disconnect}>
@@ -70,10 +88,20 @@ export default function Profile({ navigation }) {
                                         source={require('../img/logout.png')}
                                     />
                                 </TouchableOpacity>
+                                <TouchableOpacity onPress={editProfile}>
+                                    <Image
+                                        style={{
+                                            width: responsiveWidth(2),
+                                            height: responsiveHeight(3),
+                                            title: 'Modifier profil',
+                                        }}
+                                        source={require('../img/edit.png')}
+                                    />
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.bioContainer}>
-                            <Text>{data[0].bio}</Text>
+                            <Text>{profileData.bio}</Text>
                         </View>
                     </View>
                 </View>

@@ -1,8 +1,8 @@
 import { store } from "../App";
-import {REMOVE_USER, SET_USER} from "../store/actions";
+import { REMOVE_USER, SET_USER } from "../store/actions";
 
 export async function login(username, password){
-    await fetch("http://172.16.18.4:12053/api/auth/login", {
+    await fetch("http://51.15.230.77:12053/api/auth/login", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export async function login(username, password){
 }
 
 export async function logout(){
-    await fetch("http://172.16.18.4:12053/api/auth/logout", {
+    await fetch("http://51.15.230.77:12053/api/auth/logout", {
         method: 'POST',
         headers: {
             'Authorization': 'Token ' + store.getState().token
@@ -42,7 +42,7 @@ export async function logout(){
 }
 
 export async function register(lastname, firstname, username, email, password){
-    await fetch("http://172.16.18.4:12053/api/auth/register", {
+    await fetch("http://51.15.230.77:12053/api/auth/register", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

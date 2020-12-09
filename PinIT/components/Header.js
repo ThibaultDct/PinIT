@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         top: 0,
         width: '100%',
-        backgroundColor: '#303030',
+        backgroundColor: '#2A2A2A',
+        border: 0
     },
     appTitle: {
         bottom: 0,

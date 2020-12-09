@@ -3,3 +3,13 @@ export const userState = {
     token: '',
     pseudo: ''
 }
+
+export const userProfileState = {
+    pseudo: '',
+    lastname: '',
+    firstname: '',
+    image: '',
+    age: '',
+    country: '',
+    bio: ''
+}
