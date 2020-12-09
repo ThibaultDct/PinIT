@@ -9,50 +9,7 @@ export default function BodyContainer() {
   return (
     <View style={styles.bodyContainer}>
         <ScrollView>
-            <FlatList
-                data={[
-                    {src: "https://picsum.photos/1000/100"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                    {src: "https://picsum.photos/1000/1000"},
-                ]}
-                renderItem={({item}) => (
-                    <Image style={styles.item} source={{uri: item.src}} />
-                )}
-                numColumns={2}>
-            </FlatList>
+
         </ScrollView>
         <Spacer backgroundColor={'transparent'}  >
             <FAB style={styles.btnnew}

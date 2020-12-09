@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { onChange } from 'react-native-reanimated';
-import { register } from '../api_calls/auth';
+import { register } from '../api_calls/AuthAPI';
 
 
 export default function CreateAccountInput({ nav }) {

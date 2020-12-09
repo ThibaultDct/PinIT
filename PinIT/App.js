@@ -4,14 +4,18 @@ import { AppLoading } from "expo";
 import { StyleSheet, Text, View } from 'react-native';
 import Navigator from './routes/homeStack';
 import { Provider } from "react-redux";
-import { createStore } from 'redux';
-import { userReducer } from "./store/reducers";
+import { createStore, combineReducers } from 'redux';
+import { userReducer, userProfileReducer } from "./store/reducers";
 
 const getFonts = () => Font.loadAsync({
   'pacifico': require('./assets/fonts/Pacifico.ttf')
 });
 
-export const store = createStore(userReducer);
+export const rootReducer = combineReducers({
+    userReducer,
+    userProfileReducer,
+})
+export const store = createStore(rootReducer)
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
