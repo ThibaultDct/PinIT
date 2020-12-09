@@ -1,12 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, Text, ImageBackground} from 'react-native';
+import {StyleSheet, View, Text, ImageBackground, SafeAreaView, ScrollView} from 'react-native';
 import ConnexionInput from '../components/ConnexionInput';
 
 export default function Connexion({navigation}) {
 
     return (
         <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
-            <ConnexionInput nav={navigation}/>
+            <SafeAreaView>
+                <ScrollView>
+                    <ConnexionInput nav={navigation}/>
+                </ScrollView>
+            </SafeAreaView>
         </ImageBackground>
     );
 
