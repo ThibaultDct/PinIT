@@ -4,7 +4,7 @@ import {SET_USER} from "../store/actions";
 const url = 'http://51.15.230.77:12053/api/projects/';
 const token = store.getState().userReducer.token;
 
-async function loadProjects() {
+export async function loadProjects() {
     return fetch(url, {
         method: 'GET',
         headers: {"Authorization": "Token " + token}})
