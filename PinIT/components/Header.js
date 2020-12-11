@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
         top: 0,
         width: '100%',
         backgroundColor: '#2A2A2A',
-        border: 0
     },
     appTitle: {
         bottom: 0,
