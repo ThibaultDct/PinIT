@@ -5,13 +5,16 @@ import { AppLoading } from "expo";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
 import { store } from "../App";
 import { SET_PROFILE, SET_USER } from "../store/actions";
-import { TouchableOpacity } from "react-native-web";
+import {TouchableOpacity, useWindowDimensions} from "react-native-web";
 import { logout } from "../api_calls/AuthAPI";
 
 export default function Profile({ navigation }) {
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [data, setData] = useState([]);
+    const windowWidth = useWindowDimensions().width;
+    const windowHeight = useWindowDimensions().height;
+    const ratio = windowHeight/windowWidth;
     const user = store.getState().userReducer.user;
     const token = store.getState().userReducer.token;
 
@@ -25,7 +28,8 @@ export default function Profile({ navigation }) {
     }
 
     const editProfile = () => {
-        navigation.navigate('EditProfile', {nav: navigation})
+        console.log("Nav : " + navigation)
+        navigation.navigate('EditProfile')
     }
 
     async function _loadData() {
@@ -43,6 +47,7 @@ export default function Profile({ navigation }) {
 
     function updateProfileState() {
         store.dispatch({type: SET_PROFILE, payload: {
+                id: data[0].id,
                 pseudo: data[0].pseudo,
                 lastname: data[0].lastname,
                 firstname: data[0].firstname,
@@ -65,7 +70,7 @@ export default function Profile({ navigation }) {
                             <View style={styles.imageContainer}>
                                 <Image
                                     style={{
-                                        width: responsiveWidth(20),
+                                        width: responsiveWidth(20*ratio),
                                         height: responsiveHeight(20),
                                     }}
                                     source={{uri: profileData.image}}
