@@ -26,3 +26,17 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ['lastname', 'firstname']
+
+class Project(models.Model):
+    image = models.CharField(max_length = 255, blank = False, default = 'none')
+    title = models.CharField(max_length = 255, blank = False, default = 'Title')
+    description = models.CharField(max_length = 512, blank = False, default = '')
+    profile = models.ForeignKey(Profile, related_name = 'author', on_delete = models.CASCADE, null = True)
+    created = models.DateTimeField(auto_now_add = True)
+    likes = models.IntegerField(default = 0)
+
+    def __str__(self):
+        return "%s - %s (%d) [%d]" % (self.title, self.description, self.profile.id, self.id)
+
+    class Meta:
+        ordering = ['created', 'likes']

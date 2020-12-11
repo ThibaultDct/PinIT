@@ -4,5 +4,6 @@ from .views import *
 
 router  = routers.DefaultRouter()
 router.register('profiles', ProfilesViewSet, basename = 'Profile')
+router.register('projects', ProjectsViewSet, basename = 'Project')
 
 urlpatterns = router.urls
