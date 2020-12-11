@@ -118,12 +118,14 @@ const styles = StyleSheet.create({
     },
     userInput:{
         height: '10%',
+        minHeight : 35,
         backgroundColor: '#fff',
         padding: 10,
         marginBottom : 10,
     },
     pwdInput: {
         height: '10%',
+        minHeight : 35,
         backgroundColor: '#fff',
         padding: 10,
         marginBottom : 10,
