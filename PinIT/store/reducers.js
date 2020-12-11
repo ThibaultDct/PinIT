@@ -22,7 +22,7 @@ export function userProfileReducer(state = userProfileState, action){
         case SET_PROFILE:
             return {...action.payload}
         case REMOVE_PROFILE:
-            return {pseudo: '', lastname: '', firstname: '', image: '', age: '', country: '', bio: ''}
+            return {id: '', pseudo: '', lastname: '', firstname: '', image: '', age: '', country: '', bio: ''}
         default:
             return state
     }

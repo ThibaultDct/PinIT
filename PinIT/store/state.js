@@ -5,6 +5,7 @@ export const userState = {
 }
 
 export const userProfileState = {
+    id: '',
     pseudo: '',
     lastname: '',
     firstname: '',
