@@ -1,62 +1,64 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, Image, ScrollView, StyleSheet, Text, View, ImageBackground, TouchableOpacity} from 'react-native';
 import Spacer from "react-native-spacer";
 import {FAB} from "react-native-paper";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
+import {loadProjects} from "../api_calls/ProjectAPI"
+import {AppLoading} from "expo";
 
-const DATA = [
-    {
-        image: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/f/b/9/fb9dd4b28f_50151034_feu-artifice-couleurs.jpg',
-        titre: 'Les posts sont là !',
-        author: 'PinIt',
-        like: 0,
+export default function BodyContainer({nav}) {
+    const [isLoading, setLoading] = useState(true);
+    const [isError, setError] = useState(false);
+    const [proj, setProj] = useState([]);
 
-    },
-    {
-        image: 'https://i.pinimg.com/474x/80/1b/ba/801bba2f502da088dda5ab4c0ee7b4d7.jpg',
-        titre: 'Pinit',
-        author: 'Tdarty',
-        like: 2000000,
-
-    },
-    {
-        image: 'https://lamanu.fr/wp-content/uploads/2020/05/devenir-developpeur-web-mobile.jpg',
-        titre: 'Les Posts en WIP',
-        author: 'ThibaultDct',
-        like: 0,
+    function renderItem(item){
+        return (
+            <TouchableOpacity style={styles.item} title='Mon profil' onPress={pressHandler(item.id)}>
+                <Text style={styles.titreText}> {item.titre}</Text>
+                <Image style={styles.projetImage} source={{uri: item.image}}/>
+                <Text style={styles.pseudoText}>
+                    <Text>Proposer par </Text>
+                    <Text>{item.author}</Text>
+                </Text>
+                <Text syle={styles.likeContainer}>
+                    <Image style={styles.likeImage} source={require('../img/like.png')}/>
+                    <Text style={styles.like}> {item.like} </Text>
+                </Text>
+            </TouchableOpacity>
+            )
     }
-]
 
-const pressHandler = () => {
+    function pressHandler(id) {
+        nav.navigate("Projects")
+    }
 
-}
-
-const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item} title='Mon profil' onPress={pressHandler}>
-            <Text style={styles.titreText}> {item.titre}</Text>
-            <Image style={styles.projetImage} source={{uri: item.image}}/>
-            <Text style={styles.pseudoText}>
-                <Text>Proposer par </Text>
-                <Text>{item.author}</Text>
-            </Text>
-            <Text syle={styles.likeContainer}>
-                <Image style={styles.likeImage} source={require('../img/like.png')}/>
-                <Text style={styles.like}> {item.like} </Text>
-            </Text>
-    </TouchableOpacity>
-)
-
-export default function BodyContainer() {
-  return (
-      <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
-                <FlatList
-                    data={DATA}
-                    renderItem={renderItem}
-                    numColumns={3}
+    if(isLoading === false && isError === false){
+        return (
+            <FlatList
+                data={proj}
+                renderItem={renderItem}
+                numColumns={3}
+            />
+        );
+    }
+    else if (isLoading === true){
+        return (
+            <>
+                <Image source={require('../img/loading.gif')} style={styles.loadingImage}/>
+                <AppLoading
+                startAsync={setProj(loadProjects)}
+                onFinish={() => setLoading(false)}
+                onError={() => setError(true)}
                 />
-      </ImageBackground>
-  );
+            </>
+        )
+    }else {
+        return (
+            <Text>Erreur 404, serveur not found</Text>
+        )
+    }
+
 }
 
 const styles = StyleSheet.create({
@@ -69,14 +71,6 @@ const styles = StyleSheet.create({
     btnnew:{
         margin: '1%',
         backgroundColor: '#36c23b',
-    },
-    image: {
-        flex: 8,
-        height: '100%',
-        width: '100%',
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 
     item: {
@@ -112,6 +106,13 @@ const styles = StyleSheet.create({
         fontSize: responsiveFontSize(0.7),
         textAlignVertical: 'top'
     },
+    loadingImage: {
+        height: responsiveHeight(5),
+        width: responsiveHeight(5),
+        top: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 
 
 });

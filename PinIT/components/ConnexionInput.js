@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
 import {StyleSheet, Text, View, TextInput, Button,} from 'react-native';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { store } from "../App";
 import { login } from "../api_calls/AuthAPI";
+import {responsiveFontSize} from "react-native-responsive-dimensions";
 
 
 export default function ConnexionInput({ nav }) {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     titre:{
         textAlign: 'center',
         color:'white',
-        fontSize: heightPercentageToDP('10%'),
+        fontSize: responsiveFontSize(5),
     },
     userInput:{
         height: '17%',
