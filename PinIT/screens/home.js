@@ -3,13 +3,14 @@ import { StyleSheet, ImageBackground } from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import BodyContainer from '../components/BodyContainer';
-import {Image} from "react-native-web";
 
 export default function Home({ navigation }) {
     return (
         <>
             <Header nav={navigation}/>
-            <BodyContainer />
+            <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
+                <BodyContainer nav={navigation} />
+            </ImageBackground>
             <Navbar />
         </>
 
@@ -20,6 +21,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    image: {
+        flex: 8,
+        height: '100%',
+        width: '100%',
+        top: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
 });
