@@ -52,6 +52,9 @@ export default function ConnexionInput({ nav }) {
     const GoToAccount = () => {
         nav.navigate('Création')
     }
+    const GoToProject = () => {
+        nav.navigate('Project')
+    }
 
     return(
         <View style={styles.container}>
@@ -80,6 +83,10 @@ export default function ConnexionInput({ nav }) {
                 />
                 <Text style={styles.link} onPress={GoToAccount}>
                     Crée un compte</Text>
+                <Text style={styles.link} onPress={GoToProject}>
+                    Projets</Text>
+                    <Text style={styles.link} onPress={GoToProject}>
+                    Projets</Text>
                 <StatusBar style="auto"/>
             </View>
         </View>
