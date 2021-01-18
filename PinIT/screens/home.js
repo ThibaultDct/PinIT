@@ -10,7 +10,7 @@ export default function Home({ navigation }) {
         <>
             <Header nav={navigation}/>
             <BodyContainer />
-            <Navbar />
+            <Navbar nav={navigation}/>
         </>
     );
 }

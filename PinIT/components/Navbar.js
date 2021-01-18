@@ -1,50 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { BottomNavigation} from "react-native-paper";
+import { StyleSheet, TouchableOpacity, View} from 'react-native';
+//import {Accueil, Profile} from '../routes/homeStack'
+import {  createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 
-  const UserRoute = () => <Text>User</Text>;
 
-  const AllProjectRoute = () => <Text>Fild'actualité</Text>;
+export default function Navbar({ nav }) {
 
-  const NotificationsRoute = () => <Text>Notification</Text>;
+    const HomeRoute = () => {
+        nav.navigate('Home', {navigation: nav});
+    }
+    const ProfileRoute = () => {
+        nav.navigate('Profile', {navigation: nav});
+    }
+    const CreateProjectRoute = () => {
+        nav.navigate('CreationProjet', {navigation: nav});
+    }
 
-  const SettingsRoute = () => <Text>Settings</Text>;
-
-export default function Navbar() {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'user', title: 'Profil', icon: 'account', color:'#303030'},
-    { key: 'projects', title: 'Projets', icon: 'folder', color:'#303030' },
-    { key: 'notification', title: 'Notification', icon: 'alarm-light' , color:'#303030'},
-    { key: 'settings', title: 'Paramètres', icon: 'settings' , color:'#303030'},
-  ]
-
-);
-  const renderScene = BottomNavigation.SceneMap({
-    user: UserRoute,
-    projects: AllProjectRoute,
-    notification: NotificationsRoute,
-    settings: SettingsRoute,
-  });
-  return (
-      <View style={styles.navbar}>
-        <BottomNavigation
-            style={ styles.menu}
-            navigationState={{ index, routes }}
-            onIndexChange={setIndex}
-            renderScene={renderScene}
-        />
-      </View>
-  );
+    return (
+        <View>
+            <div style={{display: 'flex', position:'fixed'}}>
+                <div style={{flex: 'auto', width: '20%', backgroundcolor:'red'}}>
+                    <TouchableOpacity title='Mon profil' onPress={HomeRoute}>
+                            <a>Home</a>
+                    </TouchableOpacity>
+                </div>
+                <div style={{flex: 'auto', width: '20%', backgroundcolor:'blue'}}>
+                    <TouchableOpacity title='Mon projet' onPress={ProfileRoute}>
+                            <a>Profil</a>
+                    </TouchableOpacity>
+                </div>
+                <div style={{flex: 'auto', width: '20%', backgroundcolor:'blue'}}>
+                    <TouchableOpacity title='Mon projet' onPress={CreateProjectRoute}>
+                        <a>Nouveau Projet</a>
+                    </TouchableOpacity>
+                </div>
+            </div>
+        </View>
+    );
 }
-
 const styles = StyleSheet.create({
-  menu: {
-    position: 'relative',
-  },
-  navbar:{
-    flex: 1,
-  },
-});
+    container:{
+        display: 'flex',
+        position:'absolute',
+    }
+    }
+
+)
