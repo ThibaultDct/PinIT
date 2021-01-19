@@ -1,18 +1,17 @@
 import React from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
-import BodyContainer from '../components/BodyContainer';
-import {Image} from "react-native-web";
+import BodyProjectContainer from '../components/BodyProjectContainer';
 
-export default function Home({ navigation }) {
+export default function Project({ navigation }) {
+
     return (
         <>
             <Header nav={navigation}/>
-            <BodyContainer />
-            <Navbar nav={navigation} />
+            <BodyProjectContainer />
+            <Navbar />
         </>
-
     );
 }
 
@@ -21,5 +20,4 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
-
 });

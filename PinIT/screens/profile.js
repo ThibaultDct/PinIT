@@ -1,21 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import Navbar from '../components/Navbar';
+import { AppLoading } from "expo";
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
+import { store } from "../App";
+import { SET_PROFILE, SET_USER } from "../store/actions";
+import {TouchableOpacity, useWindowDimensions} from "react-native-web";
+import { logout } from "../api_calls/AuthAPI";
 
-<<<<<<< Updated upstream
-export default function Profile() {
-    return (
-        <>
-            <Text>SALUT VOUS</Text>
-            <Navbar />
-        </>
-    );
-=======
 export default function Profile({ navigation }) {
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [data, setData] = useState([]);
+    const windowWidth = useWindowDimensions().width;
+    const windowHeight = useWindowDimensions().height;
+    const ratio = windowHeight/windowWidth;
     const user = store.getState().userReducer.user;
     const token = store.getState().userReducer.token;
 
@@ -29,7 +28,8 @@ export default function Profile({ navigation }) {
     }
 
     const editProfile = () => {
-        navigation.navigate('EditProfile', {nav: navigation})
+        console.log("Nav : " + navigation)
+        navigation.navigate('EditProfile')
     }
 
     async function _loadData() {
@@ -45,8 +45,9 @@ export default function Profile({ navigation }) {
             });
     }
 
-    function updateProfileState() {
+     function updateProfileState() {
         store.dispatch({type: SET_PROFILE, payload: {
+                id: data[0].id,
                 pseudo: data[0].pseudo,
                 lastname: data[0].lastname,
                 firstname: data[0].firstname,
@@ -69,7 +70,7 @@ export default function Profile({ navigation }) {
                             <View style={styles.imageContainer}>
                                 <Image
                                     style={{
-                                        width: responsiveWidth(20),
+                                        width: responsiveWidth(20*ratio),
                                         height: responsiveHeight(20),
                                     }}
                                     source={{uri: profileData.image}}
@@ -120,12 +121,46 @@ export default function Profile({ navigation }) {
             />
         )
     }
->>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexDirection: 'row',
         backgroundColor: '#fff'
+    },
+    profileContainer: {
+        flex: 8,
+        top: 0,
+        backgroundColor: '#D9D9D9',
+    },
+    infosContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        margin: 20,
+        padding: 20,
+    },
+    profileOptions: {
+        flex: 1,
+    },
+    nameText: {
+        fontSize: responsiveFontSize(2),
+        fontWeight: 'bold'
+    },
+    imageContainer: {
+        flex: 1
+    },
+    globalInfosContainer: {
+        flex: 2
+    },
+    pseudoText: {
+        fontSize: responsiveFontSize(2),
+        fontWeight: 'bold',
+        color: '#048BB7'
+    },
+    bioContainer: {
+        backgroundColor: '#9CC2CF',
+        borderRadius: 10,
+        marginTop: 20,
+        padding: 20,
     },
 });

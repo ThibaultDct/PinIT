@@ -2,12 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Platform, Image} from 'react-native';
 import { register } from '../api_calls/AuthAPI';
-//Rajouter le bon chemin
 import * as ImagePicker from 'expo-image-picker';
+import {store} from '../App';
+import {createProject} from '../api_calls/ProjectAPI';
+import {updateProfileState} from '../screens/profile';
+import {loadProfileById} from '../api_calls/ProfileAPI';
 
 export default function CreateProjectInput({ nav }) {
     const [projectname, setProjectName] = useState('');
     const [projectdescription, setProjectDescription] = useState('');
+    const token = store.getState().userReducer.token;
+    const user = store.getState().userReducer.user;
+    const profile = store.getState().userProfileReducer;
+    const [data, setData] = useState([]);
 
     const handleProjectname = (text) => {
         setProjectName({text})
@@ -15,12 +22,20 @@ export default function CreateProjectInput({ nav }) {
     const handleProjectdescription = (text) => {
         setProjectDescription({text})
     }
-    const registerProject = () => {
+    const buttonProject = () => {
         let valid = true
         if (valid === true){
-
-            //register(projectname.text, projectdescription.text)
-            //    .then(nav.navigate('Home'))
+            loadProfileById(user, token)
+            console.log(store.getState())
+            try {
+               console.log(profile)
+                createProject(token,pickImage,projectname.text, projectdescription.text, profile.id );
+               // .then();
+                nav.navigate('Home')
+            } catch (error) {
+                console.log(error);
+            }
+            
         }
     }
     const [image, setImage] = useState(null);
@@ -44,7 +59,7 @@ export default function CreateProjectInput({ nav }) {
             quality: 1,
         });
 
-        console.log(result);
+        //console.log(result);
 
         if (!result.cancelled) {
             setImage(result.uri);
@@ -59,7 +74,7 @@ export default function CreateProjectInput({ nav }) {
                 defaultValue = {projectname}
             />
             <TextInput
-                backgroundColor="white"
+                //backgroundColor="white"
 
                 placeholder="Description"
                 multiline
@@ -74,7 +89,7 @@ export default function CreateProjectInput({ nav }) {
                 title="Création d'un projet"
                 //onPress={TestConnexion}
                 onPress = {
-                    () => registerProject()
+                    () => buttonProject()
                 }
                 color='green'
             />
@@ -94,7 +109,7 @@ const styles = StyleSheet.create({
     userInput:{
         height: '10%',
         minHeight : 35,
-        backgroundColor: '#fff',
+       
         padding: 10,
         marginBottom : 10,
         numberOfLines :5,
@@ -102,7 +117,7 @@ const styles = StyleSheet.create({
     pwdInput: {
         height: '10%',
         minHeight : 35,
-        backgroundColor: '#fff',
+
         padding: 10,
         marginBottom : 10,
     },

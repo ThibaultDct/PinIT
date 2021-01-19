@@ -2,32 +2,35 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
 import Home from '../screens/home';
-<<<<<<< Updated upstream
-import Profile from '../screens/home';
-=======
 import Profile from '../screens/profile';
 import EditProfile from '../screens/editProfile';
 import Connexion from '../screens/connexion';
 import CreateAccount from "../screens/createAccount";
+import Project from "../screens/project";
 import CreateProject from "../screens/createProject";
->>>>>>> Stashed changes
 
 const screens = {
+    Connexion: {
+        screen: Connexion
+    },
+    Création: {
+        screen: CreateAccount
+    },
     Accueil: {
         screen: Home
     },
-    Profil: {
+    Profile: {
         screen: Profile
     },
-<<<<<<< Updated upstream
-=======
+    Project: {
+        screen: Project
+    },
     EditProfile: {
         screen: EditProfile
     },
-    CreationProjet: {
+    CreateProject: {
         screen: CreateProject
     },
->>>>>>> Stashed changes
 }
 
 const HomeStack = createStackNavigator(screens);

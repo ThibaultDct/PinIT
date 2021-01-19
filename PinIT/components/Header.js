@@ -5,7 +5,7 @@ import {Image, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-nat
 export default function Header({ nav }) {
 
     const pressHandler = () => {
-        nav.navigate('Profil');
+        nav.navigate('Profile', {navigation: nav});
     }
 
     return (
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         top: 0,
         width: '100%',
-        backgroundColor: '#303030',
+        backgroundColor: '#2A2A2A',
     },
     appTitle: {
         bottom: 0,
