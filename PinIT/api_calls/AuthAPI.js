@@ -1,5 +1,6 @@
 import { store } from "../App";
 import { REMOVE_USER, SET_USER } from "../store/actions";
+export let token = '';
 
 export async function login(username, password){
     await fetch("http://51.15.230.77:12053/api/auth/login", {
@@ -20,6 +21,7 @@ export async function login(username, password){
             )
             if (responseData.user) {
                 store.dispatch({type: SET_USER, payload: {user: responseData.user.username, token: responseData.token, pseudo: responseData.user.username}})
+                token = responseData.token
             }
         })
         .catch(err => console.log("Compte inconnu"))
@@ -38,6 +40,7 @@ export async function logout(){
             if (statusCode === 204){
                 store.dispatch({type: REMOVE_USER})
             }
+            token = ''
         })
 }
 
