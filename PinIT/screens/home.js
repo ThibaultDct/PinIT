@@ -1,20 +1,20 @@
-import React from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, ImageBackground, FlatList, Image, Text} from 'react-native';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import BodyContainer from '../components/BodyContainer';
 
 export default function Home({ navigation }) {
-    return (
-        <>
-            <Header nav={navigation}/>
-            <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
-                <BodyContainer nav={navigation} />
-            </ImageBackground>
-            <Navbar />
-        </>
 
-    );
+        return (
+            <>
+                <Header nav={navigation}/>
+                <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
+                    <BodyContainer nav={navigation}/>
+                </ImageBackground>
+                <Navbar/>
+            </>
+        )
 }
 
 const styles = StyleSheet.create({

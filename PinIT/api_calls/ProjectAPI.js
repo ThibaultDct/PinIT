@@ -1,18 +1,13 @@
-import { store } from "../App";
-import {SET_USER} from "../store/actions";
 
+import {token} from "./AuthAPI"
 const url = 'http://51.15.230.77:12053/api/projects/';
-const token = store.getState().userReducer.token;
 
-export async function loadProjects() {
-    return fetch(url, {
+export const loadProjects = async () =>
+    await fetch(url, {
         method: 'GET',
         headers: {"Authorization": "Token " + token}})
-        .then((response) => response.json())
-        .catch((error) => {
-            console.log(error);
-        });
-}
+        .then(res => (res.ok ? res : Promise.reject(res)))
+        .then(res => res.json())
 
 export async function createProject(token, image, title, description, profile){
     await fetch("http://51.15.230.77:12053/api/projects/", {
