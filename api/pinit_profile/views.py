@@ -4,6 +4,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework import permissions
 
 from .models import Profile
+from .models import Project
 from .serializers import ProfileSerializer
 from .serializers import ProjectSerializer
 
@@ -37,5 +38,10 @@ class ProjectsViewSet(ModelViewSet):
     filter_backends = (SearchFilter,)
     search_fields = {'id', 'title', 'profile', 'created',}
 
+    def get_queryset(self):
+        return Project.objects.all()
+
     def perform_create(self, serializer):
-        serializer.save(profile=self.request.user)
+        print("Création de post par %s" % (self.request.user))
+        profile_obj = Profile.objects.get(pseudo=self.request.user)
+        serializer.save(profile=profile_obj)
