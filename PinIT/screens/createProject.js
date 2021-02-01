@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View, ImageBackground, SafeAreaView, ScrollView} from 'react-native';
 import CreateProjectInput from '../components/CreateProjectInput';
 import Navbar from '../components/Navbar';
-import imagePicker from "../components/imagePicker";
 
 export default function CreateProject({navigation}) {
 

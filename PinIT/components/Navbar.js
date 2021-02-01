@@ -19,24 +19,32 @@ export default function Navbar({ nav }) {
     }
 
     return (
-        <View>
-            <div  theme='dark' style={{ display:'flex',  backgroundColor: '#000000', alignItems:'stretch' , color:'#fff',position:'fixed', backgroundcolor:'#4f4663'}}>
+        <View
+            style={{
+                width: '100%',
+  height: '10%',
+  backgroundColor: '#000000',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'absolute', //Here is the trick
+  bottom: 0,
+
+            }}
+        >
+            <div  theme='dark' style={{ display:'flex', alignItems:'stretch' , color:'#fff',position:'fixed', backgroundcolor:'#4f4663'}}>
                 <div style={{ backgroundcolor:'4f4663', color:'#000000'}}>
                     <TouchableOpacity title='Mon profil' onPress={HomeRoute}>                          
-                            <img src={require('../img/home.png')}/>
-                            <a>Home</a>
+                            <img src={require('../img/icons8-home-64.png')}/>
                     </TouchableOpacity>
                 </div>
-                <div style={{ backgroundcolor:'#4f4663', color:'#000000'}}>
+                <div style={{  color:'#000000'}}>
                     <TouchableOpacity title='Mon projet' onPress={ProfileRoute}>                
-                            <img src={require('../img/settings.png')}/>
-                            <a>Profil</a>
+                            <img src={require('../img/icons8-user-male-64.png')}/>
                     </TouchableOpacity>
                 </div>
-                <div style={{backgroundcolor:'#4f4663', color:'#000000'}}>
+                <div style={{ color:'#000000'}}>
                     <TouchableOpacity title='Mon projet' onPress={CreateProjectRoute}>
-                        <img style={{margin:'5%'}} src={require('../img/newfolder.png')}/>
-                        <a>Nouveau Projet</a>
+                        <img src={require('../img/icons8-new-copy-64.png')}/>
                     </TouchableOpacity>
                 </div>
             </div>

@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Platform, Image} from 'react-native';
 import { register } from '../api_calls/AuthAPI';
-import * as ImagePicker from 'expo-image-picker';
 import {store} from '../App';
 import {createProject} from '../api_calls/ProjectAPI';
 import {updateProfileState} from '../screens/profile';
@@ -11,6 +10,7 @@ import {loadProfileById} from '../api_calls/ProfileAPI';
 export default function CreateProjectInput({ nav }) {
     const [projectname, setProjectName] = useState('');
     const [projectdescription, setProjectDescription] = useState('');
+    const [projectimage, setProjectPicture] = useState('');
     const token = store.getState().userReducer.token;
     const user = store.getState().userReducer.user;
     const profile = store.getState().userProfileReducer;
@@ -22,6 +22,10 @@ export default function CreateProjectInput({ nav }) {
     const handleProjectdescription = (text) => {
         setProjectDescription({text})
     }
+    const handleProjectPicture = (text) => {
+        setProjectPicture({text})
+        console.log(text)
+    }
     const buttonProject = () => {
         let valid = true
         if (valid === true){
@@ -29,7 +33,7 @@ export default function CreateProjectInput({ nav }) {
             console.log(store.getState())
             try {
                console.log(profile)
-                createProject(token,pickImage,projectname.text, projectdescription.text, profile.id );
+                createProject(token,projectimage.text,projectname.text, projectdescription.text, profile.id );
                // .then();
                 nav.navigate('Home')
             } catch (error) {
@@ -38,33 +42,6 @@ export default function CreateProjectInput({ nav }) {
             
         }
     }
-    const [image, setImage] = useState(null);
-
-    useEffect(() => {
-        (async () => {
-            if (Platform.OS !== 'web') {
-                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-                if (status !== 'granted') {
-                    alert('Sorry, we need camera roll permissions to make this work!');
-                }
-            }
-        })();
-    }, []);
-
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-
-        //console.log(result);
-
-        if (!result.cancelled) {
-            setImage(result.uri);
-        }
-    };
     return(
         <View style={styles.account}>
             <TextInput
@@ -73,21 +50,36 @@ export default function CreateProjectInput({ nav }) {
                 onChangeText = {projectname => handleProjectname(projectname)}
                 defaultValue = {projectname}
             />
-            <TextInput
-                //backgroundColor="white"
 
-                placeholder="Description"
-                multiline
-                numberOfLines = {5}
-                minHeight={35}
-                onChangeText = {projectdescription => handleProjectdescription(projectdescription)}
-                defaultValue = {projectdescription}
+            <View style={{  
+                backgroundColor: '#fff',  
+                borderBottomColor: '#000000',  
+                borderBottomWidth: 1,  
+                marginBottom: 10,
+               }}  
+            >  
+                <TextInput  
+                    multiline = {true}  
+                    numberOfLines = {5}  
+                    onChangeText={(text) => this.setState({text})}  
+                    minHeight= '35'
+                    
+                    placeholder="Description" 
+                    onChangeText = {projectdescription => handleProjectdescription(projectdescription)}
+                    defaultValue = {projectdescription}
+                />  
+            </View>  
+
+            
+            <TextInput
+                style={styles.userInput}
+                placeholder="Url de l'image"
+                onChangeText = {projectimage => handleProjectPicture(projectimage)}
+                defaultValue = {projectimage} 
             />
-            <Button title="Pick an image from camera roll" onPress={pickImage} />
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            
             <Button
                 title="Création d'un projet"
-                //onPress={TestConnexion}
                 onPress = {
                     () => buttonProject()
                 }
@@ -101,25 +93,11 @@ export default function CreateProjectInput({ nav }) {
 }
 
 const styles = StyleSheet.create({
-    account:{
-        flex: 1,
-        justifyContent: 'center',
-        padding: '10%'
-    },
     userInput:{
-        height: '10%',
         minHeight : 35,
-       
+        color: 'black',
+        backgroundColor: '#fff',
         padding: 10,
         marginBottom : 10,
-        numberOfLines :5,
-    },
-    pwdInput: {
-        height: '10%',
-        minHeight : 35,
-
-        padding: 10,
-        marginBottom : 10,
-    },
-   
+    }
 });
