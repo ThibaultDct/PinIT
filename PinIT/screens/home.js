@@ -30,14 +30,14 @@ export default function Home({ navigation }) {
 
     function updateProfileState() {
         store.dispatch({type: SET_PROFILE, payload: {
-                id: data[0].id,
-                pseudo: data[0].pseudo,
-                lastname: data[0].lastname,
-                firstname: data[0].firstname,
-                image: data[0].img,
-                age: data[0].age,
-                country: data[0].country,
-                bio: data[0].bio
+                id: data.id,
+                pseudo: data.pseudo,
+                lastname: data.lastname,
+                firstname: data.firstname,
+                image: data.img,
+                age: data.age,
+                country: data.country,
+                bio: data.bio
             }})
         console.log(store.getState())
     }
