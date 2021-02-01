@@ -55,7 +55,7 @@ export default function CreateProjectInput({ nav }) {
                 backgroundColor: '#fff',  
                 borderBottomColor: '#000000',  
                 borderBottomWidth: 1,  
-                marginBottom: 10,
+                margin: 10,
                }}  
             >  
                 <TextInput  
@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: '#fff',
         padding: 10,
-        marginBottom : 10,
+        margin : 10,
     }
 });

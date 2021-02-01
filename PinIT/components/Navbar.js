@@ -1,8 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Accueil, Profile} from '../routes/homeStack'
-import {  createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { StyleSheet, TouchableOpacity, View, Image} from 'react-native';
 
 
 
@@ -19,43 +16,47 @@ export default function Navbar({ nav }) {
     }
 
     return (
-        <View
-            style={{
-                width: '100%',
-  height: '10%',
-  backgroundColor: '#000000',
-  justifyContent: 'center',
-  alignItems: 'center',
-  position: 'absolute', //Here is the trick
-  bottom: 0,
-
-            }}
-        >
-            <div  theme='dark' style={{ display:'flex', alignItems:'stretch' , color:'#fff',position:'fixed', backgroundcolor:'#4f4663'}}>
-                <div style={{ backgroundcolor:'4f4663', color:'#000000'}}>
-                    <TouchableOpacity title='Mon profil' onPress={HomeRoute}>                          
-                            <img src={require('../img/icons8-home-64.png')}/>
+        <View style={styles.container}>
+            <View style={styles.tamere}>
+                <View style={{ backgroundColor:'#4f4663', color:'#000000'}}>
+                    <TouchableOpacity title='Mon profil' onPress={HomeRoute}>
+                        <Image source={require('../img/icons8-home-64.png')}/>
                     </TouchableOpacity>
-                </div>
-                <div style={{  color:'#000000'}}>
-                    <TouchableOpacity title='Mon projet' onPress={ProfileRoute}>                
-                            <img src={require('../img/icons8-user-male-64.png')}/>
+                </View>
+                <View style={styles.black}>
+                    <TouchableOpacity title='Mon projet' onPress={ProfileRoute}>
+                        <Image source={require('../img/icons8-user-male-64.png')}/>
                     </TouchableOpacity>
-                </div>
-                <div style={{ color:'#000000'}}>
+                </View>
+                <View style={styles.black}>
                     <TouchableOpacity title='Mon projet' onPress={CreateProjectRoute}>
-                        <img src={require('../img/icons8-new-copy-64.png')}/>
+                        <Image source={require('../img/icons8-new-copy-64.png')}/>
                     </TouchableOpacity>
-                </div>
-            </div>
+                </View>
+            </View>
         </View>
     );
 }
 const styles = StyleSheet.create({
     container:{
-        display: 'flex',
+        width: '100%',
+        height: '10%',
+        backgroundColor: '#000000',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute', //Here is the trick
+        bottom: 0,
+    },
+    black:{
+        color : '#000000',
+    },
+    tamere:{
+        display:'flex',
+        flexDirection:'row',
+        alignItems:'stretch' ,
+        color:'#ffffff',
         position:'absolute',
+        bottom:0,
+        backgroundColor:'#4f4663'
     }
-    }
-
-)
+})

@@ -20,7 +20,7 @@ export async function createProject(token, image, title, description, profile){
             image: image,
             title: title,
             description: description,
-            profile: parseInt(profile2),
+            profile: parseInt(profile),
             likes: 0
         })
     })
