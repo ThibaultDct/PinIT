@@ -1,9 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import {FlatList, Image, ScrollView, StyleSheet, Text, View, ImageBackground, TouchableOpacity} from 'react-native';
-import Spacer from "react-native-spacer";
-import {FAB} from "react-native-paper";
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
+import React, {useState} from 'react';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { responsiveHeight, responsiveFontSize } from "react-native-responsive-dimensions";
+import {loadProjects} from "../api_calls/ProjectAPI"
+import Async from "react-async";
+import {store} from "../App";
+import {SET_PROFILE} from "../store/actions";
+import {AppLoading} from "expo";
 
 const DATA = [
     {
@@ -47,42 +49,56 @@ const renderItem = ({ item }) => (
     </TouchableOpacity>
 )
 
-export default function BodyContainer() {
-  return (
-      <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
-                <FlatList
-                    data={DATA}
-                    renderItem={renderItem}
-                    numColumns={3}
-                />
-      </ImageBackground>
-  );
+export default function BodyContainer({nav}) {
+
+    const renderItem = ({item}) => (
+            <TouchableOpacity style={styles.item} title='Mon profil' onPress={pressHandler(item.id)}>
+                <Text style={styles.titreText}> {item.title}</Text>
+                <Image style={styles.projetImage} source={{uri: item.image}}/>
+                <Text style={styles.pseudoText}>
+                    <Text>Proposé par </Text>
+                    <Text>{item.profile}</Text>
+                </Text>
+                <Text syle={styles.likeContainer}>
+                    <Image style={styles.likeImage} source={require('../img/like.png')}/>
+                    <Text style={styles.like}> {item.likes} </Text>
+                </Text>
+            </TouchableOpacity>
+    )
+
+    function pressHandler(id) {
+        nav.navigate("Projects")
+    }
+
+        return (
+            <Async promiseFn={loadProjects}>
+                <Async.Loading>
+                    <Image source={require('../img/loading.gif')} style={styles.loadingImage}/>
+                </Async.Loading>
+                <Async.Fulfilled>{data => {
+                    console.log(data)
+                    return (
+                        <FlatList
+                            data={data}
+                            renderItem={renderItem}
+                            numColumns={3}
+                        />
+                    )
+                }}
+                </Async.Fulfilled>
+                <Async.Rejected>
+                    <Text> Erreur 400 : no projet found </Text>
+                </Async.Rejected>
+            </Async>
+        );
 }
 
 const styles = StyleSheet.create({
-    bodyContainer: {
-        flex: 8,
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    btnnew:{
-        margin: '1%',
-        backgroundColor: '#36c23b',
-    },
-    image: {
-        flex: 8,
-        height: '100%',
-        width: '100%',
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
     item: {
         width: '33%',
         height: 200,
     },
+  
     titreText:{
         flex:2,
         color:'white',
@@ -90,22 +106,27 @@ const styles = StyleSheet.create({
         fontSize: responsiveFontSize(1),
         textAlignVertical: 'center'
     },
+  
     projetImage:{
         flex: 8
     },
+  
     pseudoText: {
         fontSize : responsiveFontSize(0.5),
         fontWeight: 'bold',
         color: '#048bb7',
         textAlignVertical: 'top'
     },
+
     likeContainer:{
         flexDirection: 'column',
     },
+
     likeImage:{
         height:responsiveHeight(2),
         width:responsiveHeight(2)
     },
+
     like:{
         flex:2,
         color: 'red',
@@ -113,5 +134,12 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top'
     },
 
+    loadingImage: {
+        height: responsiveHeight(5),
+        width: responsiveHeight(5),
+        top: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 
 });

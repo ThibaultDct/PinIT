@@ -1,9 +1,16 @@
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {Image, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {store} from "../App";
+import {responsiveFontSize} from "react-native-responsive-dimensions";
+
+
+
 
 export default function Header({ nav }) {
 
+    let data = store.getState().userProfileReducer
+    console.log(data);
     const pressHandler = () => {
         nav.navigate('Profile', {navigation: nav});
     }
@@ -18,7 +25,7 @@ export default function Header({ nav }) {
                     <Image
                         style={styles.profilePicture}
                         source={{
-                            uri: 'https://picsum.photos/1000/1000'
+                            uri: data.image
                         }}/>
                 </TouchableOpacity>
             </View>
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 20,
         color: '#fff',
-        fontSize: 60,
+        fontSize: responsiveFontSize(5),
         fontWeight: 'bold',
     },
     profilePicture: {
