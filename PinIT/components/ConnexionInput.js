@@ -31,14 +31,10 @@ export default function ConnexionInput({ nav }) {
     const wrongLogin = () => {
         if (isError === true){
             return (
-                <Text style={{color: "#FE0000"}}>
-                    Compte ou mot de passe incorrect
-                </Text>
+                    "Compte ou mot de passe incorrect"
             )
         } else {
-            return (
-                <View />
-            )
+            return ("")
         }
     }
 
@@ -58,8 +54,8 @@ export default function ConnexionInput({ nav }) {
             <View style={styles.connexionTop}>
                 <Text style={styles.titre}>Trouvez votre prochaine idée de projet</Text>
             </View>
+            <Text style={{color: "#FE0000"}} > {wrongLogin} </Text>
             <View style={styles.connexionBottom}>
-                {wrongLogin}
                 <TextInput
                     style={styles.userInput}
                     placeholder="Nom de compte"

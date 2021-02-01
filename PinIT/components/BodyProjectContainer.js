@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   bodyProjectContainer: {
   flex: 1,
   top: 0,
-  backgroundColor: '#23333',
+  backgroundColor: '#233333',
   },
   projetImage:{
     height:responsiveHeight(10),

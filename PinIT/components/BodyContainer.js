@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { responsiveHeight, responsiveFontSize } from "react-native-responsive-dimensions";
 import {loadProjects} from "../api_calls/ProjectAPI"
 import Async from "react-async";
+import {store} from "../App";
+import {SET_PROFILE} from "../store/actions";
+import {AppLoading} from "expo";
 
 
 export default function BodyContainer({nav}) {
+
     const renderItem = ({item}) => (
             <TouchableOpacity style={styles.item} title='Mon profil' onPress={pressHandler(item.id)}>
                 <Text style={styles.titreText}> {item.title}</Text>
@@ -25,36 +29,30 @@ export default function BodyContainer({nav}) {
         nav.navigate("Projects")
     }
 
-    return (
-        <Async promiseFn={loadProjects}>
-            <Async.Loading>
-                <Image source={require('../img/loading.gif')} style={styles.loadingImage}/>
-            </Async.Loading>
-            <Async.Fulfilled>{data => {
-                console.log(data)
-                return (<FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    numColumns={3}
-                />)
-            }}
-            </Async.Fulfilled>
-            <Async.Rejected>
-                <Text> Erreur 404 : not found </Text>
-            </Async.Rejected>
-        </Async>
-    );
-
+        return (
+            <Async promiseFn={loadProjects}>
+                <Async.Loading>
+                    <Image source={require('../img/loading.gif')} style={styles.loadingImage}/>
+                </Async.Loading>
+                <Async.Fulfilled>{data => {
+                    console.log(data)
+                    return (
+                        <FlatList
+                            data={data}
+                            renderItem={renderItem}
+                            numColumns={3}
+                        />
+                    )
+                }}
+                </Async.Fulfilled>
+                <Async.Rejected>
+                    <Text> Erreur 400 : no projet found </Text>
+                </Async.Rejected>
+            </Async>
+        );
 }
 
 const styles = StyleSheet.create({
-    bodyContainer: {
-        flex: 8,
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
     item: {
         width: '33%',
         height: 200,
