@@ -72,7 +72,8 @@ export async function register(lastname, firstname, username, email, password){
 export async function registerProfile(lastname, firstname, username, email, data){
     console.log("Id : " + data.user.id)
     console.log("Token : " + data.token)
-    await fetch("http://172.16.18.4:12053/api/profiles/", {
+    console.log(username)
+    await fetch("http://51.15.230.77:12053/api/profiles/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
