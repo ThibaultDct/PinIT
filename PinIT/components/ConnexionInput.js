@@ -6,7 +6,6 @@ import { store } from "../App";
 import { login } from "../api_calls/AuthAPI";
 import {responsiveFontSize} from "react-native-responsive-dimensions";
 
-
 export default function ConnexionInput({ nav }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

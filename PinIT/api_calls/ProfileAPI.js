@@ -59,3 +59,29 @@ export async function editProfile(id, pseudo, token, image, age, country, bio){
         })
         .catch(err => console.log("Compte inconnu"))
 }
+
+export async function loadProfileById(user, token){
+    let url = 'http://51.15.230.77:12053/api/profiles/?pseudo=' + user;
+    await fetch(url, {
+        method: 'GET',
+        headers: {"Authorization": "Token " + token}})
+        .then((response) => response.json())
+        .then((responseData) => {
+            console.log(responseData)
+            store.dispatch({type: SET_PROFILE, payload: {
+                id: responseData[0].id,
+                pseudo: responseData[0].pseudo,
+                lastname: responseData[0].lastname,
+                firstname: responseData[0].firstname,
+                image: responseData[0].img,
+                age: responseData[0].age,
+                country: responseData[0].country,
+                bio: responseData[0].bio
+            }})
+        console.log(store.getState())
+        })
+        .catch((error) => {
+            console.log(error);
+            setError(true);
+        });
+}

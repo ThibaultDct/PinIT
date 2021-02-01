@@ -1,16 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Navbar from '../components/Navbar';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
 import { store } from "../App";
-import {TouchableOpacity, useWindowDimensions} from "react-native-web";
+import {useWindowDimensions} from "react-native-web";
 import { logout } from "../api_calls/AuthAPI";
 
 export default function Profile({ navigation }) {
     const windowWidth = useWindowDimensions().width;
     const windowHeight = useWindowDimensions().height;
     const ratio = windowHeight/windowWidth;
-
 
     const disconnect = () => {
         logout()
@@ -21,7 +20,6 @@ export default function Profile({ navigation }) {
         console.log("Nav : " + navigation)
         navigation.navigate('EditProfile')
     }
-
     let profileData = store.getState().userProfileReducer
     return (
         <>
