@@ -40,30 +40,29 @@ export default function CreateProjectInput({ nav }) {
     }
 
     return(
-        <View style={styles.container}>
+        <View style={styles.project}>
             <TextInput
                 style={styles.userInput}
                 placeholder="Nom"
                 onChangeText = {projectname => handleProjectname(projectname)}
+                defaultValue = {projectname}
             />
-
-            <View style={styles.description} >
+            <View>
                 <TextInput  
                     multiline = {true}  
                     numberOfLines = {5}
-                    
+                    style={styles.description}
                     placeholder="Description"
                     onChangeText = {projectdescription => handleProjectdescription(projectdescription)}
+                    defaultValue = {projectdescription}
                 />  
-            </View>  
-
-            
+            </View>
             <TextInput
                 style={styles.userInput}
                 placeholder="Url de l'image"
                 onChangeText = {projectimage => handleProjectPicture(projectimage)}
+                defaultValue = {projectimage}
             />
-            
             <Button
                 title="Création d'un projet"
                 onPress = {
@@ -72,16 +71,16 @@ export default function CreateProjectInput({ nav }) {
                 color='green'
             />
             <StatusBar style="auto"/>
-
         </View>
     );
 
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex : 1,
-        backgroundColor: '#9f0fa5'
+    project:{
+        flex: 1,
+        justifyContent: 'center',
+        padding: '10%'
     },
     userInput:{
         minHeight : 35,

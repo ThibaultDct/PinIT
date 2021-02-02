@@ -12,7 +12,7 @@ export default function CreateProject({navigation}) {
                 <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
                     <CreateProjectInput nav={navigation}/>
                 </ImageBackground>
-                <Navbar nav={navigation}/>
+                <Navbar/>
             </View>
     );
 
@@ -21,7 +21,6 @@ export default function CreateProject({navigation}) {
 }
 const styles = StyleSheet.create({
     image: {
-        flex: 1,
         height: '100%',
         width: '100%'
     },
