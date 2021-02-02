@@ -51,7 +51,7 @@ export default function Home({ navigation }) {
                 <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
                     <BodyContainer nav={navigation}/>
                 </ImageBackground>
-                <Navbar/>
+                <Navbar nav={navigation} />
             </>
         );
     } else {
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
+
     image: {
         flex: 8,
         height: '100%',

@@ -1,50 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { BottomNavigation} from "react-native-paper";
+import { StyleSheet, TouchableOpacity, View, Image} from 'react-native';
 
 
-  const UserRoute = () => <Text>User</Text>;
 
-  const AllProjectRoute = () => <Text>Fild'actualité</Text>;
+export default function Navbar({ nav }) {
 
-  const NotificationsRoute = () => <Text>Notification</Text>;
+    const HomeRoute = () => {
+        nav.navigate('Accueil', {navigation: nav});
+    }
+    const ProfileRoute = () => {
+        nav.navigate('Profile', {navigation: nav});
+    }
+    const CreateProjectRoute = () => {
+        nav.navigate('CreateProject', {navigation: nav});
+    }
 
-  const SettingsRoute = () => <Text>Settings</Text>;
-
-export default function Navbar() {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'user', title: 'Profil', icon: 'account', color:'#303030'},
-    { key: 'projects', title: 'Projets', icon: 'folder', color:'#303030' },
-    { key: 'notification', title: 'Notification', icon: 'alarm-light' , color:'#303030'},
-    { key: 'settings', title: 'Paramètres', icon: 'settings' , color:'#303030'},
-  ]
-
-);
-  const renderScene = BottomNavigation.SceneMap({
-    user: UserRoute,
-    projects: AllProjectRoute,
-    notification: NotificationsRoute,
-    settings: SettingsRoute,
-  });
-  return (
-      <View style={styles.navbar}>
-        <BottomNavigation
-            style={ styles.menu}
-            navigationState={{ index, routes }}
-            onIndexChange={setIndex}
-            renderScene={renderScene}
-        />
-      </View>
-  );
+    return (
+        <View style={styles.container}>
+                <View style={styles.purple}>
+                    <TouchableOpacity title='Mon profil' onPress={HomeRoute}>
+                        <Image source={require('../img/icons8-home-64.png')}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.purple}>
+                    <TouchableOpacity title='Mon projet' onPress={ProfileRoute}>
+                        <Image source={require('../img/icons8-user-male-64.png')}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.purple}>
+                    <TouchableOpacity title='Mon projet' onPress={CreateProjectRoute}>
+                        <Image source={require('../img/icons8-new-copy-64.png')}/>
+                    </TouchableOpacity>
+                </View>
+        </View>
+    );
 }
-
 const styles = StyleSheet.create({
-  menu: {
-    position: 'relative',
-  },
-  navbar:{
-    flex: 1,
-  },
-});
+    container:{
+        display:'flex',
+        flexDirection:'row',
+        width: '100%',
+        height: '10%',
+        backgroundColor: '#000000',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        position: 'absolute', //Here is the trick
+        bottom: 0,
+    },
+    purple:{
+        backgroundColor:'#4f4663',
+        color:'#000000'
+    }
+})

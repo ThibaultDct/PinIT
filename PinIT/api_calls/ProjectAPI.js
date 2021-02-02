@@ -1,4 +1,3 @@
-
 import {token} from "./AuthAPI"
 const url = 'http://51.15.230.77:12053/api/projects/';
 
@@ -10,6 +9,7 @@ export const loadProjects = async () =>
         .then(res => res.json())
 
 export async function createProject(token, image, title, description, profile){
+
     await fetch("http://51.15.230.77:12053/api/projects/", {
         method: 'POST',
         headers: {
@@ -20,7 +20,7 @@ export async function createProject(token, image, title, description, profile){
             image: image,
             title: title,
             description: description,
-            profile: profile,
+            profile: parseInt(profile),
             likes: 0
         })
     })

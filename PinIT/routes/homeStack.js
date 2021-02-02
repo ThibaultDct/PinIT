@@ -7,6 +7,7 @@ import EditProfile from '../screens/editProfile';
 import Connexion from '../screens/connexion';
 import CreateAccount from "../screens/createAccount";
 import Project from "../screens/project";
+import CreateProject from "../screens/createProject";
 
 const screens = {
     Connexion: {
@@ -26,6 +27,9 @@ const screens = {
     },
     EditProfile: {
         screen: EditProfile
+    },
+    CreateProject: {
+        screen: CreateProject
     },
 }
 
