@@ -1,10 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Platform, Image} from 'react-native';
-import { register } from '../api_calls/AuthAPI';
+import React, {useState} from 'react';
+import {StyleSheet, View, TextInput, Button} from 'react-native';
 import {store} from '../App';
 import {createProject} from '../api_calls/ProjectAPI';
-import {updateProfileState} from '../screens/profile';
 import {loadProfileById} from '../api_calls/ProfileAPI';
 
 export default function CreateProjectInput({ nav }) {
@@ -14,7 +12,6 @@ export default function CreateProjectInput({ nav }) {
     const token = store.getState().userReducer.token;
     const user = store.getState().userReducer.user;
     const profile = store.getState().userProfileReducer;
-    const [data, setData] = useState([]);
 
     const handleProjectname = (text) => {
         setProjectName({text})
@@ -34,7 +31,6 @@ export default function CreateProjectInput({ nav }) {
             try {
                console.log(profile)
                 createProject(token,projectimage.text,projectname.text, projectdescription.text, profile.id );
-               // .then();
                 nav.navigate('Home')
             } catch (error) {
                 console.log(error);
@@ -42,31 +38,22 @@ export default function CreateProjectInput({ nav }) {
             
         }
     }
+
     return(
-        <View style={styles.account}>
+        <View style={styles.container}>
             <TextInput
                 style={styles.userInput}
                 placeholder="Nom"
                 onChangeText = {projectname => handleProjectname(projectname)}
-                defaultValue = {projectname}
             />
 
-            <View style={{  
-                backgroundColor: '#fff',  
-                borderBottomColor: '#000000',  
-                borderBottomWidth: 1,  
-                margin: 10,
-               }}  
-            >  
+            <View style={styles.description} >
                 <TextInput  
                     multiline = {true}  
-                    numberOfLines = {5}  
-                    onChangeText={(text) => this.setState({text})}  
-                    minHeight= '35'
+                    numberOfLines = {5}
                     
-                    placeholder="Description" 
+                    placeholder="Description"
                     onChangeText = {projectdescription => handleProjectdescription(projectdescription)}
-                    defaultValue = {projectdescription}
                 />  
             </View>  
 
@@ -75,7 +62,6 @@ export default function CreateProjectInput({ nav }) {
                 style={styles.userInput}
                 placeholder="Url de l'image"
                 onChangeText = {projectimage => handleProjectPicture(projectimage)}
-                defaultValue = {projectimage} 
             />
             
             <Button
@@ -93,11 +79,22 @@ export default function CreateProjectInput({ nav }) {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex : 1,
+        backgroundColor: '#9f0fa5'
+    },
     userInput:{
         minHeight : 35,
         color: 'black',
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         padding: 10,
         margin : 10,
+    },
+    description : {
+        backgroundColor: '#ffffff',
+        borderBottomColor: '#000000',
+        borderBottomWidth: 1,
+        margin: 10,
+        minHeight: 35
     }
 });

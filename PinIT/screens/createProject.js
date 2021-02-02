@@ -8,16 +8,12 @@ export default function CreateProject({navigation}) {
 
 
     return (
-            <view>
+            <View>
                 <ImageBackground source={require('../img/background.jpg')} style={styles.image}>
-                    <SafeAreaView>
-                        <ScrollView>
-                            <CreateProjectInput nav={navigation}/>
-                        </ScrollView>
-                    </SafeAreaView>
+                    <CreateProjectInput nav={navigation}/>
                 </ImageBackground>
                 <Navbar nav={navigation}/>
-            </view>
+            </View>
     );
 
 
